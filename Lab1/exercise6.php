@@ -46,4 +46,5 @@ echo "<br>";
 $file->RemoveStringByNumber(4);
 echo "New content without removed string -> " . "{$file->GetContent()}";
 echo "<br>";
+
 ?>
