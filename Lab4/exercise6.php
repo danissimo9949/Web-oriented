@@ -1,5 +1,23 @@
 <?php
 
+interface IShowable{
+    public function showDetails();
+}
+
+interface IPrintPurpose{
+    public function showPurpose();
+}
+
+trait DocumentTrait{
+    public function showDetails(){
+        echo "Document Name: {$this->documentName}, Document Number: {$this->documentNumber}<br>";
+    }
+
+    public function showPurpose(){
+        echo "This is a document. Purpose: {$this->documentPurpose}.";
+    }
+}
+
 abstract class Document{
 
     protected string $documentName;
@@ -12,38 +30,32 @@ abstract class Document{
         $this->documentPurpose = $purpose;
     }
     
-    abstract public function showPurpose();
-
 }
 
-class SecretDocument extends Document{
+class SecretDocument extends Document implements IShowable, IPrintPurpose{
+    use DocumentTrait;
 
     public function __construct(string $name, string $number, string $purpose)
     {
        parent::__construct($name, $number, $purpose);
     }
 
-    public function showPurpose()
-    {
-        echo "This is a secret document. Purpose: {$this->documentPurpose}.";
-    }
 }
 
-class PublicDocument extends Document{
+class PublicDocument extends Document implements IShowable, IPrintPurpose{
+    use DocumentTrait;
 
     public function __construct(string $name, string $number, string $purpose)
     {
        parent::__construct($name, $number, $purpose);
     }
 
-    public function showPurpose()
-    {
-        echo "This is a public document. Purpose: {$this->documentPurpose}.";
-    }
 }
 
 $secDoc = new SecretDocument("#994SECRET", "#20", 'Secret');
+echo "{$secDoc->showDetails()}<br>";
 echo "{$secDoc->showPurpose()}<br>";
 $pubDoc = new PublicDocument("#9942425", "#404", 'Public document');
+echo "{$pubDoc->showDetails()}<br>";
 echo "{$pubDoc->showPurpose()}<br>";
 ?>
