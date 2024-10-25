@@ -1,4 +1,5 @@
-<?php  class someClass { 
+<?php  
+class someClass { 
 
 protected static $_instance;  
 
